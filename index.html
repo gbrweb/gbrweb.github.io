@@ -618,7 +618,7 @@
       
         
           <hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>人生，走着走着便懂了，对于未来，不再迷茫彷徨，而是以更坚定的步伐迈向预定的目标；人生，走着走着便懂了，对于爱情，不再痴迷悲伤，而是以更理智的心态去接受爱情细水长流的平淡；人生，走着走着便懂了，对于生活，不再困惑感伤，而是以积极乐观的心态去迎接每一个黎明的到来。<br>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>人生，走着走着便懂了，对于未来，不再迷茫彷徨，而是以更坚定的步伐迈向预定的目标；人生，走着走着便懂了，对于爱情，不再痴迷悲伤，而是以更理智的心态去接受爱情细水长流的平淡；人生，走着走着便懂了，对于生活，不再困惑感伤，而是以积极乐观的心态去迎接每一个黎明的到来。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/05/20/My-First-Blog/#more" rel="contents">
@@ -886,6 +886,12 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
   </div>
 
@@ -911,9 +917,6 @@
   
 
 
-
-  
-  
 
 
 
@@ -967,11 +970,6 @@
   
   
     <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
   
 
   
@@ -1398,23 +1396,45 @@
   
 
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
 
   
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
   
 
   
