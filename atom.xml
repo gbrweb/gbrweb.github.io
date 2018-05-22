@@ -5,9 +5,9 @@
   <subtitle>人生在勤，不索何获！</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://mr-hunter.github.io/"/>
   <updated>2018-05-22T09:39:05.480Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://mr-hunter.github.io/</id>
   
   <author>
     <name>Hunter</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>字符串左右旋转问题</title>
-    <link href="http://yoursite.com/2018/05/20/20180520/"/>
-    <id>http://yoursite.com/2018/05/20/20180520/</id>
+    <link href="https://mr-hunter.github.io/2018/05/20/20180520/"/>
+    <id>https://mr-hunter.github.io/2018/05/20/20180520/</id>
     <published>2018-05-20T05:27:47.000Z</published>
     <updated>2018-05-22T09:39:05.480Z</updated>
     
@@ -33,17 +33,17 @@
     
     </summary>
     
-      <category term="C语言知识及题集" scheme="http://yoursite.com/categories/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%8F%8A%E9%A2%98%E9%9B%86/"/>
+      <category term="C语言知识及题集" scheme="https://mr-hunter.github.io/categories/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%8F%8A%E9%A2%98%E9%9B%86/"/>
     
     
-      <category term="字符串旋转" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%97%8B%E8%BD%AC/"/>
+      <category term="字符串旋转" scheme="https://mr-hunter.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%97%8B%E8%BD%AC/"/>
     
   </entry>
   
   <entry>
     <title>【Git命令】大全</title>
-    <link href="http://yoursite.com/2018/05/20/20180522/"/>
-    <id>http://yoursite.com/2018/05/20/20180522/</id>
+    <link href="https://mr-hunter.github.io/2018/05/20/20180522/"/>
+    <id>https://mr-hunter.github.io/2018/05/20/20180522/</id>
     <published>2018-05-20T05:27:47.000Z</published>
     <updated>2018-05-22T09:39:03.487Z</updated>
     
@@ -60,19 +60,19 @@
     
     </summary>
     
-      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+      <category term="其他" scheme="https://mr-hunter.github.io/categories/%E5%85%B6%E4%BB%96/"/>
     
     
-      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+      <category term="git" scheme="https://mr-hunter.github.io/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>浅析（命令行参数 ）&amp;&amp;（main函数参数）</title>
-    <link href="http://yoursite.com/2018/05/20/201852222-2/"/>
-    <id>http://yoursite.com/2018/05/20/201852222-2/</id>
+    <link href="https://mr-hunter.github.io/2018/05/20/201852222-2/"/>
+    <id>https://mr-hunter.github.io/2018/05/20/201852222-2/</id>
     <published>2018-05-20T05:27:47.000Z</published>
-    <updated>2018-05-22T09:39:01.785Z</updated>
+    <updated>2018-05-22T10:04:32.586Z</updated>
     
     <content type="html"><![CDATA[<hr><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数:"></a>命令行参数:</h2><blockquote><p>● 命令行参数是控制命令执行的一种方式。  </p><p>● 命令行参数类似于函数的参数，只是命令行参数是传送给命令的。命令执行时，内核已经将命令行参数放入命令的栈中，命令执行时则可以获取命令行参数，解析，执行。</p><p>● 命令行参数使命令可以执行不同任务。<br><a id="more"></a></p></blockquote><h2 id="linux系统下的实现"><a href="#linux系统下的实现" class="headerlink" title="linux系统下的实现:"></a>linux系统下的实现:</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;    </span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span>    </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;    </span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,argc);    </span><br><span class="line"></span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,argv[<span class="number">0</span>]);    </span><br><span class="line"></span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,argv[<span class="number">1</span>]);    </span><br><span class="line"></span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,argv[<span class="number">2</span>]);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这个例子中，我们给main函数传递两个参数：argc，argv：</p><blockquote><p>● argc是int类型的，它表示的是命令行参数的个数。不许要用户传递，它会根据用户从命令行输入的参数个数，自动确定。</p><p>● argv是char* argv[]类型的，即是指针数组类型，它的作用是存储用户从命令行传递进来的参数。它的第一个成员是程序执行的.exe文件。</p><p>● main函数还有一个参数是envp，是一个 指针数组类型，每个元素存储指向一个环境变量的字符指针。这里不予赘述。</p></blockquote><p>对于上面的例子，我们将其保存为test.c，用gcc编译生成目标文件为a.out</p><p><strong>编译结果如下</strong>：</p><p><img src="/img/2018522.png" alt="图片加载中"><br><strong>执行结果如下</strong>：</p><p><img src="/img/20185221.png" alt="图片加载中"></p><p>这里第一个输出的是argc，因为我们只输入了./a.out，所以argc为1，即只有一个命令行参数。后面输出的第一个命令行参数也是./a.out。接着程序就出错了，因为程序要说输出第二、第三参数，而后面已经没有第二个和第三个参数了，在写实际的应用时，应注意对这一部分进行容错处理。所谓容错处理就是指软件运行时，能对由非正常因素引起的运行错误给出适当的处理或信息提示，使软件运行正常结束。而这个错误也就是程序员很容易犯得<a href="https://blog.csdn.net/sunshine_okey/article/details/7367332" target="_blank" rel="noopener">段错误</a>。</p><blockquote><p>当在命令行输入./a.out、linux、nihao三个参数时，执行结果如图：</p></blockquote><p><img src="/img/20185222.png" alt="图片加载中"><br>命令行参数个数为3，第一个参数./a.out、第二个参数linux、第三个参数nihao。</p><blockquote><p>当输入./a.out、”linux nihao”、hehe、”hi apple”四个参数时，执行结果如图：</p></blockquote><p><img src="/img/20185223.png" alt="图片加载中"><br>当输入四个参数，命令行参数个数就为4，但需要注意的是就是如果一个参数之间有空格，需要用双引号引起来，以免产生不必要的错误。</p><p><strong>当然对于具体情况请看下图</strong>：</p><p><img src="/img/20185224.png" alt="图片加载中">  </p><h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><blockquote><p>对于main函数第二个参数argv，其数据类型可以写成三种形式：<br>char *argv[]、char **argv、char argv[][]，当然第三个函数参数envp同理。</p></blockquote>]]></content>
     
@@ -86,17 +86,17 @@
     
     </summary>
     
-      <category term="C语言知识及题集" scheme="http://yoursite.com/categories/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%8F%8A%E9%A2%98%E9%9B%86/"/>
+      <category term="C语言知识及题集" scheme="https://mr-hunter.github.io/categories/C%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E5%8F%8A%E9%A2%98%E9%9B%86/"/>
     
     
-      <category term="命令行参数,main函数" scheme="http://yoursite.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0-main%E5%87%BD%E6%95%B0/"/>
+      <category term="命令行参数 main函数" scheme="https://mr-hunter.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0-main%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
   <entry>
     <title>My First Blog</title>
-    <link href="http://yoursite.com/2018/05/20/My-First-Blog/"/>
-    <id>http://yoursite.com/2018/05/20/My-First-Blog/</id>
+    <link href="https://mr-hunter.github.io/2018/05/20/My-First-Blog/"/>
+    <id>https://mr-hunter.github.io/2018/05/20/My-First-Blog/</id>
     <published>2018-05-20T05:27:47.000Z</published>
     <updated>2018-05-22T09:37:25.439Z</updated>
     
@@ -110,10 +110,10 @@
     
     </summary>
     
-      <category term="程序人生" scheme="http://yoursite.com/categories/%E7%A8%8B%E5%BA%8F%E4%BA%BA%E7%94%9F/"/>
+      <category term="程序人生" scheme="https://mr-hunter.github.io/categories/%E7%A8%8B%E5%BA%8F%E4%BA%BA%E7%94%9F/"/>
     
     
-      <category term="人生在勤，不索何获" scheme="http://yoursite.com/tags/%E4%BA%BA%E7%94%9F%E5%9C%A8%E5%8B%A4%EF%BC%8C%E4%B8%8D%E7%B4%A2%E4%BD%95%E8%8E%B7/"/>
+      <category term="人生在勤，不索何获" scheme="https://mr-hunter.github.io/tags/%E4%BA%BA%E7%94%9F%E5%9C%A8%E5%8B%A4%EF%BC%8C%E4%B8%8D%E7%B4%A2%E4%BD%95%E8%8E%B7/"/>
     
   </entry>
   
