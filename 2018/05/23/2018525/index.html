@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="c/c++代码规范," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hunter' home" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 本文摘录自谷歌开源项目开源指南。 详见  —&amp;gt;谷歌开源项目开源指南">
+<meta name="keywords" content="c&#x2F;c++代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++代码规范">
+<meta property="og:url" content="https://mr-hunter.github.io/2018/05/23/2018525/index.html">
+<meta property="og:site_name" content="Hunter&#39; home">
+<meta property="og:description" content="前言 本文摘录自谷歌开源项目开源指南。 详见  —&amp;gt;谷歌开源项目开源指南">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T16:28:51.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C&#x2F;C++代码规范">
+<meta name="twitter:description" content="前言 本文摘录自谷歌开源项目开源指南。 详见  —&amp;gt;谷歌开源项目开源指南">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mr-hunter.github.io/2018/05/23/2018525/"/>
+
+
+
+
+
+  <title>C/C++代码规范 | Hunter' home</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Mr-Hunter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hunter' home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生在勤，不索何获！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mr-hunter.github.io/2018/05/23/2018525/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/2018521.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hunter' home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C/C++代码规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T21:54:33+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-知识及题集/" itemprop="url" rel="index">
+                    <span itemprop="name">C++知识及题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  10,355
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  37
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文摘录自谷歌开源项目开源指南。</p>
+<p>详见  —&gt;<a href="http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/" target="_blank" rel="noopener">谷歌开源项目开源指南</a><br><a id="more"></a></p>
+</blockquote>
+<h1 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h1><blockquote>
+<p>每通常一个  .c/.cpp文件都有一个对应的  .h 文件。也有一些常见例外，如单元测试代码和只包含 main() 函数的 .c/.cpp文件。正确使用头文件可令代码在可读性，文件大小和性能上大为改观。</p>
+</blockquote>
+<p><strong>下面的规则将引导你规避使用头文件时的各种陷阱。</strong></p>
+<h2 id="自包含的头文件"><a href="#自包含的头文件" class="headerlink" title="自包含的头文件"></a>自包含的头文件</h2><blockquote>
+<p>头文件应该能够自给自足（自包含的，也就是可以作为第一个头文件被引入），以  .h 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以以应  .inc 结尾不允许。出分离 -inl.h 头文件的做法。所有头文件要能够自给自足。换言之，用户和重构工具不需要为特别场合而包含额外的头文件。详言之，一个头文件要有  <a href="http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/#define-guard" target="_blank" rel="noopener">1.2。#define</a>保护，统计包含它所需要的其它头文件，也不要求定义任何特别的符号。</p>
+</blockquote>
+<blockquote>
+<p>不过有一个例外，即一个文件并不是自足的，而是作为文本插入到代码某处。或者，文件内容实际上是其它头文件的特定平台（特定于平台）扩展部分，这些文件就要用  .inc 文件扩展名。</p>
+</blockquote>
+<blockquote>
+<p>如果  .h 文件声明了一个模板或内联函数，同时也在该文件加以定义。有用凡是到这些的  .cpp 文件，就得统统包含该头文件，否则程序可能会在构建中链接失败。不要把这些定义放到分离的 -inl.h 文件里（译者注：过去该规范曾提倡把定义放到-inl.h里过）。</p>
+</blockquote>
+<p><em>有个例外：如果某函数模板为所有相关模板参数显式实例化，或本身就是某类的一个私有成员，它就那么定义只能在实例化该模板的  .cpp 文件里。</em></p>
+<h2 id="define保护"><a href="#define保护" class="headerlink" title="#define保护"></a>#define保护</h2><blockquote>
+<p>所有头文件都应该使用  #define 来防止头文件被多重包含，命名格式当是： <project><em><path></path></em><file>_H_ 。<br>为保证唯一性，头文件的命名应该基于所有项目源代码树的全路径。例如，项目  foo 中的头文件 foo/src/bar/baz.h 可按如下方式保护：</file></project></p>
+</blockquote>
+<blockquote>
+<p>#ifndef FOO_BAR_BAZ_H_</p>
+<p>#define FOO_BAR_BAZ_H_  </p>
+<p>…</p>
+<p>#endif // FOO_BAR_BAZ_H_</p>
+</blockquote>
+<h2 id="前置声明"><a href="#前置声明" class="headerlink" title="前置声明"></a>前置声明</h2><blockquote>
+<p>尽可能地避免使用前置声明。使用  #include 所有游戏需要的头文件即可。<br>定义：<br><strong>所谓「前置声明」（forward declaration）是类，函数和模板的纯粹声明，没伴随着其定义。</strong></p>
+</blockquote>
+<p><strong>优点：</strong></p>
+<blockquote>
+<p>前置声明能够节省编译时间，的多余  #include 会迫使compile-器展开更多的文件，处理更多的输入。<br>前置声明能够节省不必要的重新编译的时间。  #include 使代码因为头文件中无关的改动而被重新编译多次。</p>
+</blockquote>
+<p> <strong>缺点：</strong></p>
+<blockquote>
+<p>前置声明隐藏了依赖关系，头文件改动时，用户的代码会跳过必要的重新编译过程。<br>前置声明可能会被库的后续更改所破坏。前置声明函数或模板有时会妨碍头文件开发者变动其API。例如扩大形参类型，加个自带默认参数的模板形参等等。<br>前置声明来自命名空间  std:: 的符号时，其行为未定义。<br>很难判断什么时候该用前置声明，时候什么用该  #include 极端情况下，用前置声明代替。 includes 甚至都会暗暗地改变代码的含义：</p>
+</blockquote>
+<p>// bh：<br>struct  B  {};<br>struct  D  ： B  {}</p>
+<p>// good_user.cpp：<br>＃包括 “BH”<br>void  f （B <em> ）;<br>void  f （void </em> ）;<br>void  test （D *  x ） {  f （x ）;  }</p>
+<p>//调用f（B <em>）<br>如果  #include 被  B 状语从句：  D 的前置声明替代，  test() 就会调用  f(void</em>) 。<br>前置声明了include 不少来自头文件的符号时，就会比单单一行的  冗长。<br>仅仅为了能前置声明而重构代码（比如用指针成员代替对象成员）会使代码变得更慢更复杂。</p>
+<p><strong>结论：</strong></p>
+<blockquote>
+<p>尽量避免前置声明那些定义在其他项目中的实体。</p>
+<p>函数：总是使用  #include。</p>
+<p>类模板：优先使用  #include。</p>
+<p>至于什么时候包含头文件，参见 <strong>1.5。#include的路径及顺序 </strong>。</p>
+</blockquote>
+<h2 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h2><blockquote>
+<p>只有当函数只有10行甚至更少时才将其定义为内联函数。<br>定义：<strong>当函数被声明为内联函数之后，编译器会将其内联展开，而不是按通常的函数调用机制进行调用。</strong></p>
+</blockquote>
+<p> <strong>优点：</strong></p>
+<blockquote>
+<p>只要内联的函数体小小，内联该函数可以令目标代码更加高效。对于存取函数以及其它函数体比较短，性​​能关键的函数，鼓励使用内联。</p>
+</blockquote>
+<p> <strong>缺点：</strong></p>
+<blockquote>
+<p>滥用内联将导致程序变得更慢。内联可能使目标代码量或增或减，这取决于内联函数的大小。内联非常短小的存取函数通常会减少代码大小，但内联一个相当大的函数将戏剧性的增加代码大小。现代处理器由于更好的利用了指令缓存，小巧的代码往往执行更快。</p>
+</blockquote>
+<p> <strong>结论：</strong></p>
+<blockquote>
+<p>一个较为合理的经验准则是，不要内联超过10行的函数。谨谨对待析构函数，析构函数往往比其表面看起来要更长，因为有隐含的成员和基类析构函数被调用！</p>
+</blockquote>
+<blockquote>
+<p>另一个实用的经验准则：内联那些包含循环或  switch 语句的函数常常是得不偿失（除非在大多数情况下，这些循环或  switch 语句从不被执行）。</p>
+</blockquote>
+<blockquote>
+<p>有些函数即使声明为内联的也不一定会被编译器内联，这点很重要; 比如虚函数和递归函数就不会被正常内联。通常，递归函数不应该声明成内联函数。（YuleFox注：递归调用堆栈的展开并不像循环那么简单，比如递进层数在编译时可能是未知的，大多数编译器都不支持内联递归函数）。虚函数内联的主要原因是想把它的函数体放在类定义内，为了图个方便，抑或是当作文件描述其行为，比如精短的存取函数。</p>
+</blockquote>
+<h2 id="include-的路径及顺序"><a href="#include-的路径及顺序" class="headerlink" title="#include 的路径及顺序"></a>#include 的路径及顺序</h2><blockquote>
+<p>使用标准的头文件包含顺序可增强可读性，避免隐藏依赖：相关头文件，C库，C ++库，其他库的  .h，本项目内的  .h。<br>项目内部文件应按照项目源代码目录树结构排列，避免使用UNIX特殊的快捷目录  .（当前目录）或  .. （上级目录）。</p>
+</blockquote>
+<blockquote>
+<p>例如，  google-awesome-project/src/base/logging.h 应该按如下方式包含：#include  “base / logging.h”<br>又如，  dir/foo.cpp 或  dir/foo_test.cpp 的主要作用英文的英文实现或测试  dir2/foo2.h 的功能， foo.cpp 中包含头文件的次序如下：dir2/foo2.h （优先位置，详情如下）<br>C系统文件<br>C ++系统文件<br>库其他的  .h 文件<br>项目本。内  .h 文件<br>优先这种顺序的排序保证当  dir2/foo2.h 遗漏某些必要的库时，  dir/foo.cpp 或 dir/foo_test.cpp 的构建会立刻中止。因此这一条规则保证维护这些文件的人们首先看到构建中止的消息而不是维护其他包的人们。</p>
+</blockquote>
+<blockquote>
+<p>dir/foo.cpp 和  dir2/foo2.h 通常位于同一目录下(如base/basictypes_unittest.cpp 和 base/basictypes.h），但也可放在不同目录下。按字母顺序分别对每种类型的头文件进行二次排序是不错的主意。注意较老的代码可不符合这条规则，要在方便的时候改正它们。</p>
+</blockquote>
+<blockquote>
+<p>您所依赖的符号（符号）被哪些头文件所定义，您就应该包含（包括）哪些头文件，前置声明  （向前声明）情况除外。您比如要用到  bar.h 中的某个符号，哪怕您所包含的  foo.h 已经包含了 bar.h，也照样得包含  bar.h，除非foo.h 有明确  说明它会自动向您提供  bar.h 中符号。不过，凡是cc文件所对应的「相关头文件」已经包含的，就不用再重复包含进其cc文件里面了，就像 foo.cpp 只包含  foo.h就够了，不用再管后者所包含的其它内容。</p>
+</blockquote>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="参数顺序"><a href="#参数顺序" class="headerlink" title="参数顺序"></a>参数顺序</h2><blockquote>
+<p>总述:函数的参数顺序为：输入参数在先，后跟输出参数。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>C / C ++中的函数参数或者是函数的输入，或者是函数的输出，或兼而有之。输入参数通常是值参或 const 引用，输出参数或输入/输出参数则一般为非  const 指针。在排列参数顺序时，将所有的输入参数置于输出参数之前。特别要注意，在加入新参数时不要因为它们是新参数就置于参数列表最后，而是仍然要按照前述的规则，即将新的输入参数也置于输出参数之前。</p>
+</blockquote>
+<blockquote>
+<p>这并非一个硬性规定。输入/输出参数（通常是类或结构体）让这个问题变得复杂。并且，有时候为了其他函数保持一致，你可能不得不不所有变通。</p>
+</blockquote>
+<h2 id="编写简短函数"><a href="#编写简短函数" class="headerlink" title="编写简短函数"></a>编写简短函数</h2><blockquote>
+<p>总述:我们倾向于编写简短，凝练的函数。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>我们承认长函数有时是合理的，因此并不硬限制函数的长度。如果函数超过40行，可以思索一下能不能在不影响程序结构的前提下对其进行分割。</p>
+</blockquote>
+<blockquote>
+<p>即使一个长函数现在工作的非常好，一旦有人对其修改，有可能出现新的问题，甚至导致难以发现的错误。使函数尽量简短，以便于他在他人阅读和修改代码。</p>
+</blockquote>
+<blockquote>
+<p>在处理代码时，你可能会发现复杂的长函数。不要害怕修改现有代码：如果证实这些代码使用/调试起来很困难，或者你只需​​要使用其中的一小段代码，考虑将其分割为更加简短并易于管理的若干函数。</p>
+</blockquote>
+<h2 id="引用参数"><a href="#引用参数" class="headerlink" title="引用参数"></a>引用参数</h2><blockquote>
+<p>总述:所有按引用传递的参数必须加上  const。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<p>》在C语言中，如果函数需要修改变量的值，参数必须为指针，如  。在C ++中，函数还可以声明为引用参数：  。int foo(int *pval)int foo(int &amp;val)</p>
+<p><strong>优点</strong></p>
+<blockquote>
+<p>引用定义参数可以防止出现  (*pval)++ 这样丑陋的代码。引用参数对于拷贝构造函数这样的应用也是必需的。同时也更明确地不接受空指针。</p>
+</blockquote>
+<p><strong>缺点</strong></p>
+<blockquote>
+<p>容易引起误解，因为引用在语法上是值变量却拥有指针的语义。</p>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>函数参数列表中，所有引用参数都必须是  const：void  Foo （const  string  ＆in ， string  * out ）;<br>事实上这在Google Code是一个硬性约定：输入参数是值参或  const 引用，输出参数为指针。输入参数可以是  const 指针，但决不能是非  const 引用参数，除非特殊要求，比如  swap()。<br>有时候，在输入形参中用针指更明智。</p>
+<p>比如：const T<em>const T&amp;可能会传递空指针。<br>函数要把指针或对地址的引用赋值给输入形参。<br>总而言之，大多时候输入形参往往是  。用若   则说明输入侧另有处理。所以若要使用  ，则应给出相应的理由，否则会使读者感到迷惑。const T&amp;const T</em>const T*</p>
+</blockquote>
+<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p><strong>总述</strong></p>
+<p>》若要使用函数重载，则必须能让读者一看调用点就胸有成竹，而不用花心思猜测调用的重载函数到底是哪一种。这一规则也适用于构造函数。</p>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>你可以编写一个参数类型的函数，然后用另一个参数类型函数对其进行重载：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">string</span>&amp;<span class="keyword">const</span> <span class="keyword">char</span>* <span class="class"><span class="keyword">class</span>  <span class="title">MyClass</span>  &#123;</span></span><br><span class="line">   <span class="keyword">public</span> ：</span><br><span class="line">   <span class="keyword">void</span>  Analyze （<span class="keyword">const</span>  <span class="built_in">string</span>  ＆text ）;</span><br><span class="line">   <span class="keyword">void</span>  分析（<span class="keyword">const</span>  <span class="keyword">char</span>  * text ， <span class="keyword">size_t</span>  textlen ）;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>优点</strong></p>
+<blockquote>
+<p>通过重载参数不同的同名函数，可以令代码更直观。模板化代码需要重载，这同时也能为使用者带来便利。</p>
+</blockquote>
+<p><strong>缺点</strong></p>
+<blockquote>
+<p>如果函数单靠不同的参数类型而重载（acgtyrant注：这意味着参数数量不变），读者就得十分熟悉C ++五花八门的匹配规则，以了解匹配过程具体到底如何。另外，如果派生类只重载了某个函数的部分变体，继承语义就容易令人困惑。</p>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>如果打算重载一个函数，可以试试改在函数名里加参数信息。例如，用  AppendString()和 AppendInt() 等，而不是一口气重载多个  Append()。如果重载函数的目的是为了支持不同数量的同一类型参数，则优先考虑使用  std::vector 以便使用者可以用  列表初始化指定参数。</p>
+</blockquote>
+<h2 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>只允许在非虚函数中使用缺省参数，且必须保证缺省参数的值始终一致。参数缺省与  函数重载  遵循同样的规则。一般情况下建议使用函数重载，尤其是在缺省函数带来的可读性提升不能弥补下文中所提到的缺点的情况下。</p>
+</blockquote>
+<p><strong>优点</strong></p>
+<blockquote>
+<p>有些函数一般情况下使用默认参数，但有时需要又使用非默认的参数。缺省参数为这样的情形提供了便利，使程序员不需要为了极少的例外情况编写大量的函数。和函数重载相比，缺省参数的语法更简洁明了，减少了大量的样板代码，也更好地区别了“必要参数”和“可选参数”。</p>
+</blockquote>
+<p><strong>缺点</strong></p>
+<blockquote>
+<ul>
+<li>缺省参数实际上是函数重载语义的另一种实现方式，因此所有  不应当使用函数重载的理由  也都适用于缺省参数。</li>
+<li>虚函数调用的缺省参数取决于目标对象的静态类型，此时无法保证给定函数的所有重载声明的都是同样的缺省参数。</li>
+<li>缺省参数是在每个调用点都要进行重新求值的，这会造成生成的代码迅速膨胀。作为读者，一般来说也更希望缺省的参数在声明时就已经被固定了，而不是在每次调用时都可能会有不同的取值。</li>
+<li>缺省参数会干扰函数指针，导致函数签名与调用点的签名不一致。而函数重载不会导致这样的问题。</li>
+</ul>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>对于虚函数，不允许使用缺省参数，因为在虚函数中缺省参数不一定能正常工作。如果在每个调用点缺省参数的值都有可能不同，在这种情况下缺省函数也不允许使用。（例如，不要写像   这样的代码。）void f(int n = counter++);</p>
+</blockquote>
+<p><strong>在其他情况下，如果缺省参数对可读性的提升远远超过了以上提及的缺点的话，可以使用缺省参数。如果仍有疑惑，就使用函数重载。</strong></p>
+<h2 id="函数返回类型后置语法"><a href="#函数返回类型后置语法" class="headerlink" title="函数返回类型后置语法"></a>函数返回类型后置语法</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>只有在常规写法（返回类型前置）不便于书写或不便于阅读时使用返回类型后置语法。</p>
+</blockquote>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>C ++现在允许两种不同的函数声明方式。以往的写法是将返回类型置于函数名之前。例如：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>  foo （<span class="keyword">int</span>  x ）;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>C ++ 11引入了这一新的形式。现在可以在函数名前使用  auto 关键字，在参数列表之后后置返回类型。例如：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span>  foo （<span class="keyword">int</span>  x ） - &gt;  <span class="keyword">int</span> ;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>后置返回类型为函数作用域。对于像  int 这样简单的类型，两种写法没有区别。但对于复杂的情况，例如类域中的类型声明或者以函数参数的形式书写的类型，写法的不同会造成区别。</p>
+</blockquote>
+<p><strong>优点</strong></p>
+<blockquote>
+<p>后置返回类型是显式地指定  Lambda表达式  的返回值的唯一方式。某些情况下，编译器可以自动推导出Lambda表达式的返回类型，但并不是在所有的情况下都能实现。即使编译器能够自动推导，显式地指定返回类型也能让读者更明了。</p>
+</blockquote>
+<blockquote>
+<p>有时在已经出现了的函数参数列表之后指定返回类型，能够让书写更简单，也更易读，尤其是在返回类型依赖于模板参数时。<br>例如：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>  &lt; <span class="class"><span class="keyword">class</span>  <span class="title">T</span> ， <span class="title">class</span>  <span class="title">U</span> &gt;  <span class="title">auto</span>  <span class="title">add</span> （<span class="title">T</span>  <span class="title">t</span> ， <span class="title">U</span>  <span class="title">u</span> ） - &gt;  </span></span><br><span class="line"><span class="class"><span class="title">decltype</span> （<span class="title">t</span>  +  <span class="title">u</span> ）;</span></span><br></pre></td></tr></table></figure>
+<p>对比下面的例子：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>  &lt; <span class="class"><span class="keyword">class</span>  <span class="title">T</span> ， <span class="title">class</span>  <span class="title">U</span> &gt;  <span class="title">decltype</span> （<span class="title">declval</span> &lt; T ＆&gt; （） +  <span class="title">declval</span> &lt; U ＆gt ;） add （T  t ， U  u ）;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>缺点</strong></p>
+<blockquote>
+<p>后置返回类型相对来说是非常新的语法，而且在C和Java中都没有相似的写法，因此可能对读者来说比较陌生。<br>在已有的代码中有大量的函数声明，你不可能把它们都用新的语法重写一遍。因此实际的做法只能是使用旧的语法或者新旧混用。在这种情况下，只使用一种版本是相对来说更规整的形式。</p>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>在大部分情况下，应当继续使用以往的函数声明写法，即将返回类型置于函数名前。只有在必要的时候（如Lambda表达式）或者使用后置语法能够简化书写并且提高易读性的时候才使用新的返回类型后置语法。但是后一种情况一般来说是很少见的，大部分时候都出现在相当复杂的模板代码中，而多数情况下不鼓励写这样  复杂的模板代码。</p>
+</blockquote>
+<h1 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h1><blockquote>
+<p>最重要的一致性规则是命名管理。命名的风格能让我们在不需要去查找类型声明的条件下快速地了解某个名字代表的含义：类型，变量，函数，常量，宏，等等，甚至。我们大脑中的模式匹配引擎非常依赖这些命名规则。</p>
+</blockquote>
+<blockquote>
+<p>命名规则具有一定随意性，但相比按个人喜好命名，一致性更重要，所以无论你认为它们是否重要，规则总归是规则。</p>
+</blockquote>
+<h2 id="通用命名规则"><a href="#通用命名规则" class="headerlink" title="通用命名规则"></a>通用命名规则</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>函数命名，变量命名，文件命名要有描述性; 少用缩写。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>尽可能使用描述性的命名，别心疼空间，毕竟相比之下让代码易于新读者理解更重要。不要用只有项目开发者能理解的缩写，也不要通过砍掉几个字母来缩写单词。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>  price_count_reader ;     <span class="comment">//无缩写</span></span><br><span class="line"><span class="keyword">int</span>  num_errors ;             <span class="comment">//“num”是一个常见的写法</span></span><br><span class="line"><span class="keyword">int</span>  num_dns_connections ;    <span class="comment">//人人都知道“DNS”是什么</span></span><br><span class="line"><span class="keyword">int</span>  n ;                      <span class="comment">//毫无意义。</span></span><br><span class="line"><span class="keyword">int</span>  nerr ;                   <span class="comment">//含糊不清的缩写。</span></span><br><span class="line"><span class="keyword">int</span>  n_comp_conns ;           <span class="comment">//含糊不清的缩写。</span></span><br><span class="line"><span class="keyword">int</span>  wgc_connections ;        <span class="comment">//只有贵团队知道是什么意思</span></span><br><span class="line"><span class="keyword">int</span>  pc_reader ;              <span class="comment">//“pc”有太多可能的解释了。</span></span><br><span class="line"><span class="keyword">int</span>  cstmr_id ;               <span class="comment">//删减了若干字母。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，一些特定的广为人知的缩写是允许的，例如用  i 表示迭代变量和用  T 表示模板参数。</p>
+</blockquote>
+<blockquote>
+<p>模板参数的命名应当遵循对应的分类：类型模板参数应当遵循  类型命名  的规则，而非类型模板应当 遵循变量命名  的规则。</p>
+</blockquote>
+<h2 id="文件命名"><a href="#文件命名" class="headerlink" title="文件命名"></a>文件命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>文件名要全部小写，可以包含下划线（_）或连-字符（），依照项目的约定。如果没有约定，那么“ _” 更好。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>可接受的文件命名示例：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_useful_class.cpp</span><br><span class="line">my-useful-<span class="class"><span class="keyword">class</span>.<span class="title">cpp</span></span></span><br><span class="line"><span class="class"><span class="title">myusefulclass</span>.<span class="title">cpp</span></span></span><br><span class="line"><span class="class"><span class="title">myusefulclass_test</span>.<span class="title">cpp</span> //  _<span class="title">unittest</span></span></span><br><span class="line"><span class="class">状语从句：  _<span class="title">regtest</span> 已弃用。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>C ++文件要以  .cpp结尾，头文件以  .h 结尾。专门插入文本的文件则以  .inc 结尾，参见  头文件自足。</p>
+</blockquote>
+<blockquote>
+<p>不要使用已经存在于  /usr/include 下的文件名（Yang.Y注：即编译器搜索系统头文件的路径），如 db.h。</p>
+</blockquote>
+<blockquote>
+<p>通常应尽量让文件名更加明确。  http_server_logs.h 就比  logs.h 要好。定义类时文件名一般成对出现，如  foo_bar.h 和  foo_bar.cpp，对应于类  FooBar。</p>
+</blockquote>
+<blockquote>
+<p>联内必须函数放在  .h 文件中。如果内联函数比较短，就直接放在  .h 中。</p>
+</blockquote>
+<h2 id="类型命名"><a href="#类型命名" class="headerlink" title="类型命名"></a>类型命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>类型名称的每个单词首字母均大写，不包含下划线：  MyExcitingClass，  MyExcitingEnum。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>所有类型命名 - 类，结构体，类型定义（typedef），枚举，类型模板参数 - 均使用相同约定，即以大写字母开始，每个单词首字母均大写，不包含下划线。例如：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类和结构体</span></span><br><span class="line">类 UrlTable  &#123;  ...</span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">UrlTableTester</span>  &#123;</span>  ...</span><br><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">UrlTableProperties</span>  &#123;</span>  ...</span><br><span class="line"></span><br><span class="line"><span class="comment">//类型定义</span></span><br><span class="line"><span class="keyword">typedef</span>  hash_map &lt; UrlTableProperties  * ， <span class="built_in">string</span> &gt;  PropertiesMap ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用别名</span></span><br><span class="line">使用 PropertiesMap  =  hash_map &lt; UrlTableProperties  * ， <span class="built_in">string</span> &gt; ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">enum</span>  UrlTableErrors  &#123;  ...</span><br></pre></td></tr></table></figure>
+<h2 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>变量（包括函数参数）和数据成员名一律小写，单词之间用下划线连接。类的成员变量以下划线结尾，但结构体的就不用，如：  a_local_variable，  a_struct_data_member， a_class_data_member_。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>普通变量命名</p>
+</blockquote>
+<p><strong>举例</strong>：</p>
+<blockquote>
+<p>字符串 table_name ;   //好 - 用下划线。<br>字符串 表名;    //好 - 全小写。<br>字符串 tableName ;   //差 - 混合大小写<br>类数据成员</p>
+</blockquote>
+<p><strong>不管是静态的还是非静态的，类数据成员都可以和普通变量一样，但要接下划线。</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">类 TableInfo  &#123;</span><br><span class="line"> ...</span><br><span class="line"><span class="keyword">private</span> ：</span><br><span class="line"> <span class="built_in">string</span>  table_name_ ;   <span class="comment">//好 - 后加下划线。</span></span><br><span class="line"> 字符串 tablename_ ;    <span class="comment">//好。</span></span><br><span class="line"> 静态 池&lt; TableInfo &gt; *  pool_ ;   <span class="comment">//好。</span></span><br><span class="line">&#125;;</span><br><span class="line">结构体变量</span><br><span class="line"></span><br><span class="line">不管是静态的还是非静态的，结构体数据成员都可以和普通变量一样，不用像类那样接下划线：</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">UrlTableProperties</span>  &#123;</span></span><br><span class="line"> <span class="built_in">string</span>  name ;</span><br><span class="line"> <span class="keyword">int</span>  num_entries ;</span><br><span class="line"> 静态 池&lt; UrlTableProperties &gt; *  池;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>结构体与类的使用讨论，参考 结构体与类。</p>
+</blockquote>
+<h2 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>声明为  constexpr 或  const 的变量，或在程序运行期间其值始始保持不变的，命名时以“k”开头，大小写混合。例如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  <span class="keyword">int</span>  kDaysInAWeek  =  <span class="number">7</span> ;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>所有具有静态存储类型的变量（例如静态变量或全局变量，参见  存储类型）都应当以此方式命名。对于其他存储类型的变量，如自动变量等，这条规则是可选的。如果不采用这条规则，就按照一般的变量命名规则。</p>
+</blockquote>
+<h2 id="命名空间命名"><a href="#命名空间命名" class="headerlink" title="命名空间命名"></a>命名空间命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>命名空间以小写字母命名。最高级命名空间的名字取决于项目名称。要注意避免嵌套命名空间的名字之间和常见的顶级命名空间的名字之间发生冲突。</p>
+</blockquote>
+<blockquote>
+<p>顶级命名空间的名称应当是项目名或者是该命名空间中的代码所属的团队的名字。命名空间中的代码，应当存放于和命名空间的名字匹配的文件夹或其子文件夹中。</p>
+</blockquote>
+<blockquote>
+<p>注意  不使用缩写作为名称  的规则同样适用于命名空间。命名空间中的代码极少需要涉及命名空间的名称，因此没有必要在命名空间中使用缩写。</p>
+</blockquote>
+<blockquote>
+<p>要避免嵌套的命名空间与常见的顶级命名空间发生名称冲突。由于名称查找规则的存在，命名空间之间的冲突完全有可能导致编译失败。尤其是，不要创建嵌套的  std 命名空间。建议使用更独特的项目标识符（websearch::index，  websearch::index_util）而非常见的极易发生冲突的名称（比如 websearch::util）。</p>
+</blockquote>
+<blockquote>
+<p>对于  internal 命名空间，要当心加入到同一  internal 命名空间的代码之间发生冲突（由于内部维护人员通常来自同一团队，因此常有可能导致冲突）。在这种情况下，请使用文件名以使内部名称独一无二（例如对于  frobber.h，使用  websearch::index::frobber_internal）。</p>
+</blockquote>
+<h2 id="枚举命名"><a href="#枚举命名" class="headerlink" title="枚举命名"></a>枚举命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>枚举命名应当状语从句：  常量  或  宏  harmony和谐：  kEnumName 或是  ENUM_NAME。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>单独枚举值应该优先采用  常量  的命名方式。但  宏  方式的命名也可以接受。<br>枚举名 UrlTableErrors （以及  AlternateUrlTableErrors）是类型，所以要用大小写混合的方式。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">enum</span>  UrlTableErrors  &#123;</span><br><span class="line">   kOK  =  <span class="number">0</span> ，</span><br><span class="line">   kErrorOutOfMemory ，</span><br><span class="line">   kErrorMalformedInput ，</span><br><span class="line">&#125;;</span><br><span class="line">枚举 AlternateUrlTableErrors  &#123;</span><br><span class="line">   OK  =  <span class="number">0</span> ，</span><br><span class="line">   OUT_OF_MEMORY  =  <span class="number">1</span> ，</span><br><span class="line">   MALFORMED_INPUT  =  <span class="number">2</span> ，</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="宏命名"><a href="#宏命名" class="headerlink" title="宏命名"></a>宏命名</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>你并不打算  使用宏，对吧？如果你一定要用，像这样命名：  MY_MACRO_THAT_SCARES_SMALL_CHILDREN。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>参考  预处理宏 ; 通常  不应该  使用宏。如果不得不使用，其命名像枚举命名一样全部大写，使用下划线：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ROUND（x）...</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI_ROUNDED 3.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="命名规则的特例"><a href="#命名规则的特例" class="headerlink" title="命名规则的特例"></a>命名规则的特例</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>如果你命名的实体与已有C / C ++实体相似，可参考现有命名策略。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">bigopen()：函数名，参照  open() 的形式</span><br><span class="line"></span><br><span class="line">uint： <span class="keyword">typedef</span></span><br><span class="line"></span><br><span class="line">bigpos：  <span class="class"><span class="keyword">struct</span> 或  <span class="title">class</span>，参照  <span class="title">pos</span> 的形式</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">sparse_hash_map</span>：<span class="title">STL</span>型实体;</span> 参照STL命名约定</span><br><span class="line"></span><br><span class="line">LONGLONG_MAX：常量，如同 INT_MAX</span><br></pre></td></tr></table></figure>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><blockquote>
+<p>注释虽然写起来很痛苦，但对保证代码可读性至关重要。下面的规则描述了如何注释以及在哪儿注释。当然也要记住：注释固然很重要，但最好的代码应当本身就是文档。有意义的类型名和变量名，要远胜过要用注释解释的含糊不清的名字。</p>
+</blockquote>
+<blockquote>
+<p>你写的注释是给代码读者看的，也就是下一个需要理解你的代码的人。所以慷慨些吧，下一个读者可能就是你！</p>
+</blockquote>
+<h2 id="注释风格"><a href="#注释风格" class="headerlink" title="注释风格"></a>注释风格</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>使用  // 或  /*<em> </em> */ 统一就好。</p>
+</blockquote>
+<p>说明</p>
+<blockquote>
+<p>// 或 /*<em> </em> */  都可以; 但 //更  常用。要在如何注释及注释风格上确保统一。</p>
+</blockquote>
+<h2 id="文件注释"><a href="#文件注释" class="headerlink" title="文件注释"></a>文件注释</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>在每一个文件开头加入版权公告。</p>
+</blockquote>
+<blockquote>
+<p>文件注释描述了该文件的内容。如果一个文件只声明，或实现或测试了一个对象，并且这个对象已经在它的声明处进行了详细的注释，那么就没有必要再加上文件注释。除此之外的其他文件都需要文件注释。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>法律公告和作者信息</p>
+<p>每个文件都应该包含许可证引用。为项目选择合适的许可证版本（比如，Apache 2.0，BSD，LGPL，GPL）</p>
+<p>如果你对原始作者的文件做了重大修改，请考虑删除原作者信息。</p>
+</blockquote>
+<p><strong>文件内容</strong></p>
+<blockquote>
+<p>如果一个  .h 文件声明了多个概念，则文件注释应当对文件的内容做一个大致的说明，同时说明各个概念之间的联系。一个一到两行的文件注释就足够了，对于每个概念的详细文档应当放在各个概念中，而不是文件注释中。</p>
+</blockquote>
+<p><strong>不要在  .h 和  .cpp 之间复制注释，这样的注释偏离了注释的实际意义。</strong></p>
+<h2 id="类注释"><a href="#类注释" class="headerlink" title="类注释"></a>类注释</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>每个类的定义都要附带一份注释，描述类的功能和用法，除非它的功能相当明显。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//遍历GargantuanTable的内容。</span></span><br><span class="line"><span class="comment">//示例：</span></span><br><span class="line"><span class="comment">// GargantuanTableIterator * iter = table-&gt; NewIterator（）;</span></span><br><span class="line"><span class="comment">// it for（iter-&gt; Seek（“foo”）;！iter-&gt; done（）; iter-&gt; Next（））&#123;</span></span><br><span class="line"><span class="comment">// process（iter-&gt; key（），iter-&gt; value（））;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="comment">//删除它;</span></span><br><span class="line">类 GargantuanTableIterator  &#123;</span><br><span class="line"> ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>类注释应当为读者理解如何使用与何时使用类提供足够的信息，同时应当提醒读者在正确使用此类时应当考虑的因素。如果类有任何同步前提，请用文档说明。如果该类的实例可被多线程访问，要特别注意文档说明多线程环境下相关的规则和常量使用。</p>
+</blockquote>
+<blockquote>
+<p>如果你想用一小段代码演示这个类的基本用法或通常用法，放在类注释里也非常合适。</p>
+</blockquote>
+<blockquote>
+<p>如果类的声明和定义分开了（例如分别放在了  .h 和  .cpp 文件中），此时，描述类用法的注释应当和接口定义放在一起，描述类的操作和实现的注释应当和实现放在一起。</p>
+</blockquote>
+<h2 id="函数注释"><a href="#函数注释" class="headerlink" title="函数注释"></a>函数注释</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>函数声明处的注释描述函数功能; 定义处的注释描述函数实现。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>函数声明:基本上每个函数声明处前都应当加上注释，描述函数的功能和用途。只有在函数的功能简单而明显时才能省略这些注释（例如，简单的取值和设值函数）。注释使用叙述式（“打开文件”）而非指令式（“打开文件”）; 注释只是为了描述函数，而不是命令函数做什么。通常，注释不会描述函数如何工作。那是函数定义部分的事情。</p>
+</blockquote>
+<p><strong>函数声明处注释的内容：</strong></p>
+<blockquote>
+<p>函数的输入输出。<br>对类成员函数而言：函数调用期间对象是否需要保持引用参数，是否会释放这些参数。<br>函数是否分配了必须由调用者释放的空间。<br>参数是否可以为空指针。<br>是否存在函数使用上的性能隐患。<br>如果函数是可重入的，其同步提提是什么？<br>举例如下：</p>
+</blockquote>
+<blockquote>
+<p>//返回此表的迭代器。<br>当迭代器完成时，它是<br>客户端的责任//并且一旦<br>创建<br>迭代器的GargantuanTable对象被删除，它就不能使用迭代器。//<br>//迭代器最初位于表的开始位置。<br>//<br>//此方法等同于：<br>// Iterator <em> iter = table-&gt; NewIterator（）;<br>// iter-&gt; Seek（“”）;<br>//返回iter;<br>//如果您要立即寻找到<br>返回的迭代器<br>中的其他位置，则使用NewIterator（）会更快，并避免额外的查找。<br>Iterator </em>  GetIterator （） const;<br>但也要避免罗罗嗦嗦，或者对显着易见的内容进行说明。下面的注释就没有必要加上“否则返回false”，因为已经暗含其中了：<br>//如果表不能包含更多条目，则返回true。<br>bool  IsTableFull （）;<br>注释函数重载时，注释的重点应该是函数中被重载的部分，而不是简单的重复被重载的函数的注释。多数情况下，函数重载不需要额外的文档，因此也没有必要加上注释。</p>
+</blockquote>
+<blockquote>
+<p>注释构造/析构函数，切记读代码的人知道构造/析构函数的所有功能，所以“销毁这一对象”这样的注释是没有意义的。你应该注意的是注意构造函数对参数做了什么（例如，是否取得指针所有权）以及析构函数清理了什么。如果都是些无关紧要的内容，直接省掉注释。析构函数前没有注释是很正常的。</p>
+</blockquote>
+<p><strong>函数定义</strong></p>
+<blockquote>
+<p>如果函数的实现过程中用到了很巧妙的方式，那么在函数定义处应当加上解释性的注释。例如，你所使用的编程技巧，实现的大致步骤，或解释如此实现的理由。举个例子，你可以说明为什么函数的前半部分要加锁而后半部分不需要。</p>
+</blockquote>
+<blockquote>
+<p>不要  从  .h 文件或其他地方的函数声明处直接复制注释。简要重述函数功能是可以的，但注释重点要放在如何实现上。</p>
+</blockquote>
+<h2 id="变量注释"><a href="#变量注释" class="headerlink" title="变量注释"></a>变量注释</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>通常变量名本身足以很好说明变量用途。某些情况下，也需要额外的注释说明。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>类数据成员:每个类数据成员（也叫实例变量或成员变量）都应该用注释说明用途。如果有非变量的参数（例如特殊值，数据成员之间的关系，生命周期等）不能够使用类型与变量名明确表达，则应当加上注释。然而，如果变量类型与变量名已经足够描述一个变量，那么就不需要加上注释。</p>
+</blockquote>
+<p><strong>特别地，如果变量可以接受  NULL 或  -1 等警戒值，须加以说明。比如：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> ：</span><br><span class="line"><span class="comment">//用于限制检查表访问。-1意味着</span></span><br><span class="line"><span class="comment">//我们还不知道表中有多少个条目。</span></span><br><span class="line"><span class="keyword">int</span>  num_total_entries_ ;</span><br><span class="line">全局变量</span><br><span class="line"></span><br><span class="line">和数据成员一样，所有全局变量也要注释说明含义及用途，以及作为全局变量的原因。比如：</span><br><span class="line"></span><br><span class="line"><span class="comment">//在此回归测试中我们经历的测试用例的总数。</span></span><br><span class="line"><span class="keyword">const</span>  <span class="keyword">int</span>  kNumTestCases  =  <span class="number">6</span> ;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现注释"><a href="#实现注释" class="headerlink" title="实现注释"></a>实现注释</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>对于代码中巧妙的，晦涩的，有趣的，重要的地方加以注释。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>代码前注释:巧妙或复杂的代码段前要加注释。比如：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将结果除以2，考虑到x</span></span><br><span class="line"><span class="comment">//包含来自add的进位。</span></span><br><span class="line"><span class="keyword">for</span>  （<span class="keyword">int</span>  i  =  <span class="number">0</span> ;  i  &lt;  result - &gt; size （）;  i ++ ） &#123;</span><br><span class="line"> x  =  （x  &lt;&lt;  <span class="number">8</span> ） +  （* result ）[ i ];</span><br><span class="line"> （* 结果）[ i ]  =  x  &gt;&gt;  <span class="number">1</span> ;</span><br><span class="line"> x  ＆=  <span class="number">1</span> ;</span><br><span class="line">&#125;</span><br><span class="line">行注释</span><br><span class="line"></span><br><span class="line">比较隐晦的地方要在行尾加入注释。在行尾空两格进行注释。比如：</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果我们有足够的内存，也可以对数据部分进行mmap。</span></span><br><span class="line">mmap_budget  =  max &lt; int64 &gt; （<span class="number">0</span> ， mmap_budget  -  index_ - &gt; length （））;</span><br><span class="line"><span class="keyword">if</span>  （mmap_budget  &gt; =  data_size_  &amp;&amp;  ！MmapData （mmap_chunk_bytes ， mlock ））</span><br><span class="line"> <span class="keyword">return</span> ;   <span class="comment">//错误已经记录。</span></span><br><span class="line">注意，这里用了两段注释分别描述这段代码的作用，并提示函数返回错误已经被记入日志。</span><br><span class="line"></span><br><span class="line">如果你需要连续进行多行注释，可以使之对齐获得更好的可读性：</span><br><span class="line"></span><br><span class="line">DoSomething （）;                   <span class="comment">//在这里发表评论，以便评论排成一行。</span></span><br><span class="line">DoSomethingElseThatIsLonger （）;   <span class="comment">//代码和注释之间有两个空格。</span></span><br><span class="line">&#123;  <span class="comment">//允许打开一个新的作用域时，在注释之前的一个空格</span></span><br><span class="line"> <span class="comment">// //因此注释与下面的注释和代码一起排列。</span></span><br><span class="line"> DoSomethingElse （）;   <span class="comment">//通常在行注释之前有两个空格。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">std</span> :: <span class="built_in">vector</span> &lt; <span class="built_in">string</span> &gt;  <span class="built_in">list</span> &#123;</span><br><span class="line">                   <span class="comment">//支撑列表中的注释描述下一个元素...</span></span><br><span class="line">                   “First item” ，</span><br><span class="line">                   <span class="comment">// ..并且应该适当地对齐。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>函数参数注释</strong></p>
+<p><strong>如果函数参数的意义不明显，考虑用下面的方式进行弥补：</strong></p>
+<blockquote>
+<p>如果参数是一个字面常量，并且这一常量在多处函数调用中被使用，用以推断它们一致，你应该用一个常量名让这个约定变得更明显，并且保证这一约定不会被打破。<br>考虑更改函数的签名，让某个  bool 类型的参数变为  enum 类型，这样可以让这个参数的值表达其意义。<br>如果某个函数有多个配置选项，你可以考虑定义一个类或结构体以保存所有的选项，并传入类或结构体的实例。这样的方法有许多优点，例如这样的选项可以在调用处用变量名引用，这样就能清晰地表明其意义。同时也减少了函数参数的数量，使得函数调用更易读也易写。除此之外，以这样的方式，如果你使用其他的选项，就无需对调用点进行更改。<br>用具名变量代替大段而复杂的嵌套表达式。<br>万不得已时，才考虑在调用点用注释阐明参数的意义。</p>
+</blockquote>
+<p><strong>不允许的行为</strong></p>
+<blockquote>
+<p>不要描述显而易见的现象，  永远不要  用自然语言翻译代码作为注释，除非即使对深入理解C ++的读者来说代码的行为都是不明显的。要假设读代码的人C ++水平比你高，即便他/她可能不知道你的用意.</p>
+</blockquote>
+<blockquote>
+<p>你所提供的注释应当解释代码  为什么  要这么做和代码的目的，或者最好是让代码自文档化.</p>
+</blockquote>
+<h2 id="标点，拼写和语法"><a href="#标点，拼写和语法" class="headerlink" title="标点，拼写和语法"></a>标点，拼写和语法</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>注意标点，拼写和语法; 写的好的注释比差的要易读的多。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>注释的通常写法是包含正确大小写和结尾句号的完整叙述性语句。大多数情况下，完整的句子比句子片段可读性更高。短一点的注释，比如代码行尾注释，可以随意点，但依然要注意风格的一致性。</p>
+</blockquote>
+<blockquote>
+<p>虽然被别人指出该用分号时却用了逗号多少有些尴尬，但清晰易读的代码还是很重要的。正确的标点，拼写和语法对此会有很大帮助。</p>
+</blockquote>
+<h2 id="行长度"><a href="#行长度" class="headerlink" title="行长度"></a>行长度</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>每一行代码字符数不超过80。</p>
+</blockquote>
+<blockquote>
+<p>我们也认识到这条规则是有争议的，但很多已有代码都遵照这一规则，因此我们感觉一致性更重要。</p>
+</blockquote>
+<p><strong>优点</strong></p>
+<blockquote>
+<p>提倡该原则的人认为强迫他们调整编辑器窗口大小是很野蛮的行为。很多人同时并排开几个代码窗口，根本没有多余的空间拉伸窗口。大家都把窗口最大尺寸加以限定，并且80列宽是传统标准。那么为什么要改变呢？</p>
+</blockquote>
+<p><strong>缺点</strong></p>
+<blockquote>
+<p>反对该原则的人则认为更宽的代码行更易阅读。80列的限制是上个世纪60年代的大型机的古板缺陷;现代设备具有更宽的显示屏，可以很轻松地显示更多代码。</p>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>80个字符是最大值。</p>
+</blockquote>
+<blockquote>
+<p>如果无法在不伤害易读性的条件下进行断行，那么注释行可以超过80个字符，这样可以方便复制粘贴。例如，带有命令示例或URL的行可以超过80个字符。长所有游戏的路径  #include 语句可以超出80列。</p>
+</blockquote>
+<p><strong>文件头保护  可以无视该原则。</strong></p>
+<h2 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>要么一行写完函数调用，要么在圆括号里对参数分行，要么参数另起一行且缩进四格。如果没有其它顾虑的话，尽可能精简行数，比如把多个参数适当地放在同一行里。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">函数调用遵循如下形式：</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span>  retval  =  DoSomething （argument1 ， argument2 ， argument3 ）;</span><br><span class="line">如果同一行放不下，可断为多行，后面每一行都和第一个实参对齐，左圆括号后和右圆括号前不要留空格：</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span>  retval  =  DoSomething （averyveryveryverylongargument1 ，</span><br><span class="line">                         argument2 ， argument3 ）;</span><br><span class="line">参数也可以放在次行，缩进四格：</span><br><span class="line"></span><br><span class="line">如果 （...） &#123;</span><br><span class="line"> ...</span><br><span class="line"> ...</span><br><span class="line"> <span class="keyword">if</span>  （...） &#123;</span><br><span class="line">   DoSomething （</span><br><span class="line">       argument1 ， argument2 ，  <span class="comment">// 4空格缩进</span></span><br><span class="line">       argument3 ， argument4 ）;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把多个参数放在同一行以减少函数调用所需的行数，除非影响到可读性。有人认为把每个参数都独立成行，不仅更好读，而且方便编辑参数。</p>
+</blockquote>
+<h2 id="循环和开关选择语句"><a href="#循环和开关选择语句" class="headerlink" title="循环和开关选择语句"></a>循环和开关选择语句</h2><p><strong>总述</strong></p>
+<blockquote>
+<p>switch 语句可以使用大括号分段，以表明cases之间不是连在一起的。在单语句循环里，括号可用可不用。循环空应行业释义体育使用  {} 或  continue。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>switch 语句中的  case 块可以使用大括号也可以不用，取决于你的个人喜好。如果用的话，要按照下文所述的方法。</p>
+</blockquote>
+<blockquote>
+<p>如果有不满足  case 条件的枚举值，  switch 应该default 总是包含一个  匹配（如果有输入值没有case去处理，编译器将给出警告）。如果  default 应该永远执行不到，简单的加条  assert：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">switch</span>  （var ） &#123;</span><br><span class="line"> <span class="keyword">case</span>  <span class="number">0</span> ： &#123;   <span class="comment">// 2空格缩进</span></span><br><span class="line">   ...       <span class="comment">// 4空格缩进</span></span><br><span class="line">   <span class="keyword">break</span> ;</span><br><span class="line"> &#125;</span><br><span class="line"> 案例 <span class="number">1</span> ： &#123;</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">break</span> ;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">default</span> ： &#123;</span><br><span class="line">   assert （<span class="literal">false</span> ）;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在单语句循环里，括号可用可不用：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span>  （<span class="keyword">int</span>  i  =  <span class="number">0</span> ;  i  &lt;  kSomeNumber ;  ++ i ）</span><br><span class="line"> <span class="built_in">printf</span> （“我爱你\ n ” ）;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>  （<span class="keyword">int</span>  i  =  <span class="number">0</span> ;  i  &lt;  kSomeNumber ;  ++ i ） &#123;</span><br><span class="line"> <span class="built_in">printf</span> （“我拿回来\ n ” ）;</span><br><span class="line">&#125;</span><br><span class="line">空循环体应使用  &#123;&#125; 或  <span class="keyword">continue</span>，而不是一个简单的分号。</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>  （condition ） &#123;</span><br><span class="line"> <span class="comment">//反复循环直到条件失效。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>  （<span class="keyword">int</span>  i  =  <span class="number">0</span> ;  i  &lt;  kSomeNumber ;  ++ i ） &#123;&#125;   <span class="comment">//可 - 空循环体。</span></span><br><span class="line">同时 （条件） 继续;   <span class="comment">//可 -  contunue表明没有逻辑。</span></span><br><span class="line"><span class="keyword">while</span>  （condition ）;   <span class="comment">//差 - 看起来仅仅只是while / loop的部分之一。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="构造函数初始值列表"><a href="#构造函数初始值列表" class="headerlink" title="构造函数初始值列表"></a>构造函数初始值列表</h2><p><strong>总述*</strong></p>
+<blockquote>
+<p>构造函数初始化列表放在同一行或按四格缩进并排多行。</p>
+</blockquote>
+<p><strong>说明</strong></p>
+<blockquote>
+<p>下面两种初始值列表方式都可以接受：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果所有变量能放在同一行：</span></span><br><span class="line">MyClass :: MyClass （<span class="keyword">int</span>  var ） ： some_var_ （var ） &#123;</span><br><span class="line"> DoSomething （）;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果不能放在同一行，</span></span><br><span class="line"><span class="comment">//必须置于冒号后，并缩进4个空格</span></span><br><span class="line">MyClass :: MyClass （<span class="keyword">int</span>  var ）</span><br><span class="line">   ： some_var_ （var ）， some_other_var_ （var  +  <span class="number">1</span> ） &#123;</span><br><span class="line"> DoSomething （）;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果初始化列表需要置于多行，将每个成员放在单独的一行</span></span><br><span class="line"><span class="comment">//并逐行对齐</span></span><br><span class="line">MyClass :: MyClass （<span class="keyword">int</span>  var ）</span><br><span class="line">   ： some_var_ （var ），             <span class="comment">// 4空格缩进</span></span><br><span class="line">     some_other_var_ （var  +  <span class="number">1</span> ） &#123;   <span class="comment">//列队</span></span><br><span class="line"> DoSomething （）;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//右大括号&#125;可以和左大括号&#123;放在同一行</span></span><br><span class="line"><span class="comment">//如果这样做合适的话</span></span><br><span class="line">MyClass :: MyClass （<span class="keyword">int</span>  var ）</span><br><span class="line">   ： some_var_ （var ） &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><blockquote>
+<p>代码规范是项目开发非常重要的一点，作为一名合格的程序猿应该将代码规范熟记于心。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	
+	<div>
+      
+        
+      
+    </div>
+	
+	<div>
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hunter
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://mr-hunter.github.io/2018/05/23/2018525/" title="C/C++代码规范">https://mr-hunter.github.io/2018/05/23/2018525/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c-c-代码规范/" <i class="fa fa-tag"></i> c/c++代码规范</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/22/201855223/" rel="next" title="【C语言】经典小游戏-扫雷">
+                <i class="fa fa-chevron-left"></i> 【C语言】经典小游戏-扫雷
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/2018524/" rel="prev" title="平均数三种境界">
+                平均数三种境界 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjY2MC8xMzE5NQ=="></div>
+    </div>
+
+  
+	
+	 
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/2018521.png"
+                alt="Hunter" />
+            
+              <p class="site-author-name" itemprop="name">Hunter</p>
+              <p class="site-description motion-element" itemprop="description">最累的时候，家是我们最好的归宿。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Mr-Hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1522138135@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41035588" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#头文件"><span class="nav-number">2.</span> <span class="nav-text">头文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自包含的头文件"><span class="nav-number">2.1.</span> <span class="nav-text">自包含的头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#define保护"><span class="nav-number">2.2.</span> <span class="nav-text">#define保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置声明"><span class="nav-number">2.3.</span> <span class="nav-text">前置声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内联函数"><span class="nav-number">2.4.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include-的路径及顺序"><span class="nav-number">2.5.</span> <span class="nav-text">#include 的路径及顺序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数顺序"><span class="nav-number">3.1.</span> <span class="nav-text">参数顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写简短函数"><span class="nav-number">3.2.</span> <span class="nav-text">编写简短函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用参数"><span class="nav-number">3.3.</span> <span class="nav-text">引用参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数重载"><span class="nav-number">3.4.</span> <span class="nav-text">函数重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺省参数"><span class="nav-number">3.5.</span> <span class="nav-text">缺省参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数返回类型后置语法"><span class="nav-number">3.6.</span> <span class="nav-text">函数返回类型后置语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名约定"><span class="nav-number">4.</span> <span class="nav-text">命名约定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用命名规则"><span class="nav-number">4.1.</span> <span class="nav-text">通用命名规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件命名"><span class="nav-number">4.2.</span> <span class="nav-text">文件命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型命名"><span class="nav-number">4.3.</span> <span class="nav-text">类型命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量命名"><span class="nav-number">4.4.</span> <span class="nav-text">变量命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量命名"><span class="nav-number">4.5.</span> <span class="nav-text">常量命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间命名"><span class="nav-number">4.6.</span> <span class="nav-text">命名空间命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举命名"><span class="nav-number">4.7.</span> <span class="nav-text">枚举命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏命名"><span class="nav-number">4.8.</span> <span class="nav-text">宏命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名规则的特例"><span class="nav-number">4.9.</span> <span class="nav-text">命名规则的特例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">5.</span> <span class="nav-text">注意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注释风格"><span class="nav-number">5.1.</span> <span class="nav-text">注释风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件注释"><span class="nav-number">5.2.</span> <span class="nav-text">文件注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类注释"><span class="nav-number">5.3.</span> <span class="nav-text">类注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数注释"><span class="nav-number">5.4.</span> <span class="nav-text">函数注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量注释"><span class="nav-number">5.5.</span> <span class="nav-text">变量注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现注释"><span class="nav-number">5.6.</span> <span class="nav-text">实现注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标点，拼写和语法"><span class="nav-number">5.7.</span> <span class="nav-text">标点，拼写和语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行长度"><span class="nav-number">5.8.</span> <span class="nav-text">行长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数调用"><span class="nav-number">5.9.</span> <span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环和开关选择语句"><span class="nav-number">5.10.</span> <span class="nav-text">循环和开关选择语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数初始值列表"><span class="nav-number">5.11.</span> <span class="nav-text">构造函数初始值列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+         
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hunter</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">30.3k</span>
+  
+</div>
+
+
+
+ <!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini
+	
+	</a> v5.1.4</div>
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="true"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+ 
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+
+    </div>
+  
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+     </div>
+  </body>
+ 

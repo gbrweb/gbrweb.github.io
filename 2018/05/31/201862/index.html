@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="结构体," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hunter' home" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言 对于C语言的学习，我们知道有基本数据类型，指针类型，自定义类型等。今天一起来探讨一下自定义类型。">
+<meta name="keywords" content="结构体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义类型：结构体，枚举，联合">
+<meta property="og:url" content="https://mr-hunter.github.io/2018/05/31/201862/index.html">
+<meta property="og:site_name" content="Hunter&#39; home">
+<meta property="og:description" content="前言 对于C语言的学习，我们知道有基本数据类型，指针类型，自定义类型等。今天一起来探讨一下自定义类型。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-02T09:55:34.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义类型：结构体，枚举，联合">
+<meta name="twitter:description" content="前言 对于C语言的学习，我们知道有基本数据类型，指针类型，自定义类型等。今天一起来探讨一下自定义类型。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mr-hunter.github.io/2018/05/31/201862/"/>
+
+
+
+
+
+  <title>自定义类型：结构体，枚举，联合 | Hunter' home</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Mr-Hunter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hunter' home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">人生在勤，不索何获！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mr-hunter.github.io/2018/05/31/201862/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hunter">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/2018521.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hunter' home">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义类型：结构体，枚举，联合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T22:02:36+08:00">
+                2018-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言知识及题集/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言知识及题集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,252
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>对于C语言的学习，我们知道有基本数据类型，指针类型，自定义类型等。今天一起来探讨一下自定义类型。<br><a id="more"></a></p>
+</blockquote>
+<h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><h2 id="结构体的声明"><a href="#结构体的声明" class="headerlink" title="结构体的声明"></a>结构体的声明</h2><h3 id="结构的基础知识"><a href="#结构的基础知识" class="headerlink" title="结构的基础知识"></a>结构的基础知识</h3><blockquote>
+<p>结构是一些值的集合，这些值称为成员变量。结构的每个成员可以是不同类型的变量。</p>
+</blockquote>
+<h3 id="结构的声明"><a href="#结构的声明" class="headerlink" title="结构的声明"></a>结构的声明</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tag</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	member_list; <span class="comment">//成员列表</span></span><br><span class="line">&#125;variable_list;	<span class="comment">//变量列表也称类型名，属于全局变量</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>注意：程序应尽可能少定义全局变量，在程序中到处引用全局变量，会导致程序难以控制，容易出错。且声明不占用内存</em></p>
+</blockquote>
+<p><strong>例如描述一个学生</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];<span class="comment">//名字</span></span><br><span class="line">	<span class="keyword">int</span> age;<span class="comment">//年龄</span></span><br><span class="line">	<span class="keyword">char</span> sex[<span class="number">5</span>];<span class="comment">//姓名</span></span><br><span class="line">	<span class="keyword">char</span> telp[<span class="number">11</span>];<span class="comment">//电话号</span></span><br><span class="line">	<span class="keyword">char</span> id[<span class="number">20</span>];<span class="comment">//学号</span></span><br><span class="line">&#125;;<span class="comment">//分号不能丢</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="特殊的声明"><a href="#特殊的声明" class="headerlink" title="特殊的声明"></a>特殊的声明</h3><blockquote>
+<p>特殊声明就是不完全声明又叫匿名结构体类型声明</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名结构体类型声明</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="keyword">float</span> c;</span><br><span class="line">&#125;x;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="keyword">float</span> c;</span><br><span class="line">&#125;a[<span class="number">20</span>],*p;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>对于上面声明，均省略了结构体标签，而对于匿名结构体类型声明，编译器会把上面两个声明当成<strong>完全不同</strong>的 两个类型，所以对于<strong>p = &amp;x</strong>是非法的</em></p>
+</blockquote>
+<h2 id="结构的成员"><a href="#结构的成员" class="headerlink" title="结构的成员"></a>结构的成员</h2><blockquote>
+<p>结构的成员可以是标量，数组，指针，甚至是其他结构体。</p>
+</blockquote>
+<h3 id="结构体成员的访问"><a href="#结构体成员的访问" class="headerlink" title="结构体成员的访问"></a>结构体成员的访问</h3><blockquote>
+<ul>
+<li>结构体变量访问成员： 结构变量成员通过点操作符（.）访问，点操作符接收两个操作数。</li>
+<li>结构体访问指向变量的成员： 有时候我们得到不是一个结构体变量，而是一个指向结构体的指针，就应该用（-&gt;）操作符。</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];<span class="comment">//名字</span></span><br><span class="line">	<span class="keyword">int</span> age;<span class="comment">//年龄</span></span><br><span class="line">&#125;s;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(struct Stu* pc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s,%d\n"</span>,(*pc).name,(*pc).age);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s,%d\n"</span>, pc-&gt;name, pc-&gt;age);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结构自引用"><a href="#结构自引用" class="headerlink" title="结构自引用"></a>结构自引用</h2><blockquote>
+<p>简而言之就是在结构中包含一个类型为结构本身的成员</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> data;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;Node;</span><br></pre></td></tr></table></figure>
+<h2 id="结构的不完整声明"><a href="#结构的不完整声明" class="headerlink" title="结构的不完整声明"></a>结构的不完整声明</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">B</span>* <span class="title">pb</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">B</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">A</span>* <span class="title">pa</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="结构体变量定义及初始化"><a href="#结构体变量定义及初始化" class="headerlink" title="结构体变量定义及初始化"></a>结构体变量定义及初始化</h2><blockquote>
+<p>有了结构体类型，定义及初始化就很简单了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> y;</span><br><span class="line">&#125;p1; <span class="comment">//声明类型同时定义变量p1</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span> <span class="title">p2</span>;</span><span class="comment">//定义结构体变量p2</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span> <span class="title">P3</span> = &#123;</span> x, y &#125;;<span class="comment">//定义变量同时初始化</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Po</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Po</span> <span class="title">s</span> = &#123;</span> <span class="string">"zhangsan"</span>, <span class="number">20</span> &#125;;<span class="comment">//定义变量同时初始化</span></span><br></pre></td></tr></table></figure>
+<h2 id="结构体内存对齐"><a href="#结构体内存对齐" class="headerlink" title="结构体内存对齐"></a>结构体内存对齐</h2><blockquote>
+<p>目前，我们已经掌握了结构体的基本使用了，现在来开始讨论一个问题：<strong>计算结构的大小</strong>。当然也是一个热门考点：<strong>结构体内存对齐</strong></p>
+</blockquote>
+<p><strong>如何计算？</strong></p>
+<p><em>结构体内存对齐规则：</em></p>
+<blockquote>
+<ul>
+<li>第一个成员在与结构体变量偏移量为0的地址处；</li>
+<li>其他成员变量要对齐到某个数字（对齐数）的整数倍的地址处。<strong>对齐数</strong>=编译器默认对齐数 与该成员自身大小中的最小值。<strong>VS默认值为8，linux中gcc默认值为4.</strong></li>
+<li>结构体总大小为最大对齐数的整数倍；</li>
+<li>如果嵌套了结构体的情况，嵌套的结构体对齐到自己最大对齐数的整数倍处，结构体的大小就是所有对齐数中最大对齐数的整数倍。</li>
+</ul>
+</blockquote>
+<p><strong>注意：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack（n）    <span class="comment">//n表示系统默认最大对齐数</span></span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack（）     <span class="comment">//使用完应立即取消自定义设置</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>为什么存在内存对齐？</strong></p>
+<blockquote>
+<p><strong>平台原因(移植原因):</strong></p>
+<ul>
+<li>不是所有硬件平台都能访问任意地址上的数据，某些硬件平台只能在某些地址处取某些特定类型的数据，否则肯呢个抛出硬件异常。</li>
+</ul>
+<p><strong>性能原因：</strong></p>
+<ul>
+<li>数据结构（尤其是栈）应该尽可能的在自然边界上对齐，原因在于：访问未对齐的内存，处理器需要两次访问，而访问对齐内存，处理器只需访问一次。</li>
+</ul>
+</blockquote>
+<p><em>总的来说：</em>结构体内存对齐就是用空间换取时间的做法，而我们在设计的时候既要满足内存对齐，还要满足节省空间，那么唯一做法：<strong>让占用空间小的成员尽可能集中在一起。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//练习一</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">double</span> d;</span><br><span class="line">  <span class="comment">//0-7</span></span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">  <span class="comment">//8</span></span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="comment">//11-15</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(struct S1));        <span class="comment">//16</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//练习二</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">char</span> a;</span><br><span class="line">  <span class="comment">//0</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">S1</span> <span class="title">S</span>;</span></span><br><span class="line">  <span class="comment">//8-23</span></span><br><span class="line">  <span class="keyword">double</span> f;</span><br><span class="line">  <span class="comment">//24-31</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(struct S2));        <span class="comment">//32</span></span><br></pre></td></tr></table></figure>
+<p><em>附加：</em></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//宏，表示结构体成员变量在内存中偏移量包含于头文件#include &lt;stddef.h&gt;</span></span><br><span class="line">offsetof(struct S,   A);</span><br><span class="line"></span><br><span class="line">宏实现：（<span class="keyword">size_t</span>）&amp;(((S*)<span class="number">0</span>)-&gt;m)</span><br></pre></td></tr></table></figure>
+<h2 id="结构体传参"><a href="#结构体传参" class="headerlink" title="结构体传参"></a>结构体传参</h2><blockquote>
+<p>讲解函数栈桢的时候，我们知道函数传参是需要参数压栈的，如果传递的是一个结构体对象，而结构体过大，参数压栈的系统开销就会很大，所以导致系统性能下降。</p>
+</blockquote>
+<p><strong>结论</strong></p>
+<blockquote>
+<p>结构体传参的时候要传<strong>结构体指针。</strong></p>
+</blockquote>
+<h2 id="位段"><a href="#位段" class="headerlink" title="位段"></a>位段</h2><h3 id="什么是位段？"><a href="#什么是位段？" class="headerlink" title="什么是位段？"></a>什么是位段？</h3><p><em>位段声明与结构体类型相似，有两个不同：</em></p>
+<blockquote>
+<ul>
+<li>位段成员必须int 、unsigned int 或 signed int。</li>
+<li>位段成员名后面有一个冒号和一个数字。</li>
+</ul>
+</blockquote>
+<h3 id="位段内存分配"><a href="#位段内存分配" class="headerlink" title="位段内存分配"></a>位段内存分配</h3><blockquote>
+<ul>
+<li>位段成员可以是int 、unsigned int、signed int、或者char(整形家族)类型。</li>
+<li>位段的空间上按四个字节（int）或者一个字节（char）方式开辟</li>
+<li>位段涉及很多不确定因素，位段是不跨平台的，注重可移植性程序因避免使用位段。</li>
+</ul>
+</blockquote>
+<p><strong>eg：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a:<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> b:<span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> c:<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> d:<span class="number">30</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="keyword">sizeof</span>(struct A)); <span class="comment">//8</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="位段跨平台问题"><a href="#位段跨平台问题" class="headerlink" title="位段跨平台问题"></a>位段跨平台问题</h3><blockquote>
+<ul>
+<li>int位段当成有符号还是无符号是不确定的</li>
+<li>位段中最大位数目不确定的</li>
+<li>位段中成员是从左到右还是从右到左是不确定的</li>
+<li>当一个结构体包含两个位段，第二个位段成员比较大，无法容纳于第一个位段剩余的位时，是舍弃剩余的还是利用，是不确定的</li>
+</ul>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>跟结构相比，位段可以达到同样的效果，还节省空间，但是因为存在跨平台问题，所以运用的就不是很多了。</p>
+</blockquote>
+<h1 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h1><blockquote>
+<p>枚举顾名思义就是一一列举。<br>比如：星期、颜色、性别等；</p>
+</blockquote>
+<h2 id="枚举类型定义"><a href="#枚举类型定义" class="headerlink" title="枚举类型定义"></a>枚举类型定义</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color</span><br><span class="line">&#123;</span><br><span class="line">	RED,</span><br><span class="line">	GRENE,</span><br><span class="line">	BLUE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>以上定义的enum Color 就是枚举类型，{}中内容就是可能取值，也叫枚举常量，默认从零开始一次递增1，当然有时候也可以自定义赋值：</em><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color</span><br><span class="line">&#123;</span><br><span class="line">	RED = <span class="number">1</span>,</span><br><span class="line">	GREEN = <span class="number">4</span>,</span><br><span class="line">	BLUE = <span class="number">8</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="枚举优点"><a href="#枚举优点" class="headerlink" title="枚举优点"></a>枚举优点</h2><blockquote>
+<ul>
+<li>增加代码可读性与可维护性</li>
+<li>与#define相比有类型检查，更加严谨</li>
+<li>防止命名污染</li>
+<li>便于调试</li>
+<li>使用方便，一次可定义多个常量</li>
+</ul>
+</blockquote>
+<h1 id="联合（共用体）"><a href="#联合（共用体）" class="headerlink" title="联合（共用体）"></a>联合（共用体）</h1><h2 id="联合定义"><a href="#联合定义" class="headerlink" title="联合定义"></a>联合定义</h2><blockquote>
+<p>联合也是一种特殊自定义类型，该类型定义变量也包含一系列成员，特征是这些成员公用一块空间。</p>
+</blockquote>
+<p><strong>eg</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//联合类型声明</span></span><br><span class="line"><span class="keyword">union</span> Un</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//联合变量的定义</span></span><br><span class="line"><span class="keyword">union</span> Un un;</span><br><span class="line"><span class="comment">//计算变量大小</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="keyword">sizeof</span>(un)); <span class="comment">//4</span></span><br></pre></td></tr></table></figure>
+<h2 id="联合特点"><a href="#联合特点" class="headerlink" title="联合特点"></a>联合特点</h2><blockquote>
+<p>联合成员公用一块内存空间，这样一个联合变量大小，至少是最大成员大小。</p>
+</blockquote>
+<h2 id="经典应用"><a href="#经典应用" class="headerlink" title="经典应用"></a>经典应用</h2><blockquote>
+<p>判断当前计算机大小端存储：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> CheckSystem（）</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">union</span> Un</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a;</span><br><span class="line">		<span class="keyword">char</span> i;</span><br><span class="line">	&#125;un;</span><br><span class="line">	un.a = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//返回为1,小端存储</span></span><br><span class="line">	<span class="comment">//返回为0，大端存储</span></span><br><span class="line">	<span class="keyword">return</span> nu.i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="联合大小的计算"><a href="#联合大小的计算" class="headerlink" title="联合大小的计算"></a>联合大小的计算</h2><blockquote>
+<ul>
+<li>联合大小至少是最大成员大小</li>
+<li>当最大成员大小不是最大对齐数整数倍时，就要对齐到最大对齐数的整数倍</li>
+</ul>
+</blockquote>
+<p><strong>eg</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> UN1</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> arr[<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">union</span> UN2</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">short</span> c[<span class="number">7</span>];</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="keyword">sizeof</span>(<span class="keyword">union</span> UN1));   <span class="comment">//8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="keyword">sizeof</span>(<span class="keyword">union</span> UN2));   <span class="comment">//16</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="结构体与联合巧妙使用："><a href="#结构体与联合巧妙使用：" class="headerlink" title="结构体与联合巧妙使用："></a>结构体与联合巧妙使用：</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将long类型ip地址，转换为电分十进制形式</span></span><br><span class="line"><span class="keyword">union</span> ip_addr</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> addr;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">char</span> c1;</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">char</span> c2;</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">char</span> c3;</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">char</span> c4;</span><br><span class="line">	&#125;ip;</span><br><span class="line">	<span class="keyword">union</span> ip_addr my_ip;</span><br><span class="line">	my_ip.addr = <span class="number">176238749</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d.%d.%d.%d"</span>,my_ip.ip.c4,my_ip.ip.c3,my_ip.ip.c2,my_ip.ip.c1,);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><blockquote>
+<p>通过自定义类型学习，掌握了内存对齐等相关运用，以及如何检验大小端问题。<br><strong>好好学习，天天编程</strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+	
+	<div>
+      
+        
+      
+    </div>
+	
+	<div>
+    
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Hunter
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://mr-hunter.github.io/2018/05/31/201862/" title="自定义类型：结构体，枚举，联合">https://mr-hunter.github.io/2018/05/31/201862/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/结构体/" <i class="fa fa-tag"></i> 结构体</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/29/201863/" rel="next" title="201863">
+                <i class="fa fa-chevron-left"></i> 201863
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/01/201861/" rel="prev" title="逆序字符串问题">
+                逆序字符串问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjY2MC8xMzE5NQ=="></div>
+    </div>
+
+  
+	
+	 
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/2018521.png"
+                alt="Hunter" />
+            
+              <p class="site-author-name" itemprop="name">Hunter</p>
+              <p class="site-description motion-element" itemprop="description">最累的时候，家是我们最好的归宿。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Mr-Hunter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1522138135@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_41035588" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构体"><span class="nav-number">2.</span> <span class="nav-text">结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体的声明"><span class="nav-number">2.1.</span> <span class="nav-text">结构体的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构的基础知识"><span class="nav-number">2.1.1.</span> <span class="nav-text">结构的基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构的声明"><span class="nav-number">2.1.2.</span> <span class="nav-text">结构的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的声明"><span class="nav-number">2.1.3.</span> <span class="nav-text">特殊的声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构的成员"><span class="nav-number">2.2.</span> <span class="nav-text">结构的成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体成员的访问"><span class="nav-number">2.2.1.</span> <span class="nav-text">结构体成员的访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构自引用"><span class="nav-number">2.3.</span> <span class="nav-text">结构自引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构的不完整声明"><span class="nav-number">2.4.</span> <span class="nav-text">结构的不完整声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体变量定义及初始化"><span class="nav-number">2.5.</span> <span class="nav-text">结构体变量定义及初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体内存对齐"><span class="nav-number">2.6.</span> <span class="nav-text">结构体内存对齐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体传参"><span class="nav-number">2.7.</span> <span class="nav-text">结构体传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位段"><span class="nav-number">2.8.</span> <span class="nav-text">位段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是位段？"><span class="nav-number">2.8.1.</span> <span class="nav-text">什么是位段？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位段内存分配"><span class="nav-number">2.8.2.</span> <span class="nav-text">位段内存分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位段跨平台问题"><span class="nav-number">2.8.3.</span> <span class="nav-text">位段跨平台问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.8.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#枚举"><span class="nav-number">3.</span> <span class="nav-text">枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举类型定义"><span class="nav-number">3.1.</span> <span class="nav-text">枚举类型定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举优点"><span class="nav-number">3.2.</span> <span class="nav-text">枚举优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联合（共用体）"><span class="nav-number">4.</span> <span class="nav-text">联合（共用体）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#联合定义"><span class="nav-number">4.1.</span> <span class="nav-text">联合定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合特点"><span class="nav-number">4.2.</span> <span class="nav-text">联合特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经典应用"><span class="nav-number">4.3.</span> <span class="nav-text">经典应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合大小的计算"><span class="nav-number">4.4.</span> <span class="nav-text">联合大小的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构体与联合巧妙使用："><span class="nav-number">5.</span> <span class="nav-text">结构体与联合巧妙使用：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+         
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hunter</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">30.3k</span>
+  
+</div>
+
+
+
+ <!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini
+	
+	</a> v5.1.4</div>
+-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="true"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+ 
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+
+    </div>
+  
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+     </div>
+  </body>
+ 
