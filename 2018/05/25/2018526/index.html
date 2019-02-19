@@ -86,7 +86,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hunter' home" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Gbr' home" type="application/atom+xml" />
 
 
 
@@ -97,23 +97,23 @@
 <meta name="keywords" content="栈桢">
 <meta property="og:type" content="article">
 <meta property="og:title" content="函数调用过程（栈桢）">
-<meta property="og:url" content="https://mr-hunter.github.io/2018/05/25/2018526/index.html">
-<meta property="og:site_name" content="Hunter&#39; home">
+<meta property="og:url" content="https://gbrweb.github.io/2018/05/25/2018526/index.html">
+<meta property="og:site_name" content="Gbr&#39; home">
 <meta property="og:description" content="前言 栈帧也叫过程活动记录，是编译器用来实现函数调用过程的一种数据结构。C语言中，每个栈帧对应着一个未运行完的函数。从逻辑上讲，栈帧就是一个函数执行的环境：函数调用框架、函数参数、函数的局部变量、函数执行完后返回到哪里等等。栈是从高地址向低地址延伸的。每个函数的每次调用，都有它自己独立的一个栈帧，这个栈帧中维持着所需要的各种信息。寄存器ebp指向当前的栈帧的底部（高地址），寄存器esp指向当前的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://mr-hunter.github.io/img/2018526.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20285261.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185262.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185263.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185264.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185265.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185266.png">
-<meta property="og:image" content="https://mr-hunter.github.io/img/20185267.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/2018526.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20285261.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185262.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185263.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185264.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185265.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185266.png">
+<meta property="og:image" content="https://gbrweb.github.io/img/20185267.png">
 <meta property="og:updated_time" content="2018-06-01T16:28:51.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数调用过程（栈桢）">
 <meta name="twitter:description" content="前言 栈帧也叫过程活动记录，是编译器用来实现函数调用过程的一种数据结构。C语言中，每个栈帧对应着一个未运行完的函数。从逻辑上讲，栈帧就是一个函数执行的环境：函数调用框架、函数参数、函数的局部变量、函数执行完后返回到哪里等等。栈是从高地址向低地址延伸的。每个函数的每次调用，都有它自己独立的一个栈帧，这个栈帧中维持着所需要的各种信息。寄存器ebp指向当前的栈帧的底部（高地址），寄存器esp指向当前的">
-<meta name="twitter:image" content="https://mr-hunter.github.io/img/2018526.png">
+<meta name="twitter:image" content="https://gbrweb.github.io/img/2018526.png">
 
 
 
@@ -143,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://mr-hunter.github.io/2018/05/25/2018526/"/>
+  <link rel="canonical" href="https://gbrweb.github.io/2018/05/25/2018526/"/>
 
 
 
 
 
-  <title>函数调用过程（栈桢） | Hunter' home</title>
+  <title>函数调用过程（栈桢） | Gbr' home</title>
   
 
 
@@ -170,7 +170,7 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
-	<a href="https://github.com/Mr-Hunter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+	<a href="https://github.com/gbrweb"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -180,7 +180,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hunter' home</span>
+        <span class="site-title">Gbr' home</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -321,16 +321,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mr-hunter.github.io/2018/05/25/2018526/">
+    <link itemprop="mainEntityOfPage" href="https://gbrweb.github.io/2018/05/25/2018526/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hunter">
+      <meta itemprop="name" content="Gbr">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/img/2018521.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hunter' home">
+      <meta itemprop="name" content="Gbr' home">
     </span>
 
     
@@ -578,11 +578,11 @@
         <ul class="post-copyright">
   <li class="post-copyright-author">
     <strong>本文作者：</strong>
-    Hunter
+    Gbr
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://mr-hunter.github.io/2018/05/25/2018526/" title="函数调用过程（栈桢）">https://mr-hunter.github.io/2018/05/25/2018526/</a>
+    <a href="https://gbrweb.github.io/2018/05/25/2018526/" title="函数调用过程（栈桢）">https://gbrweb.github.io/2018/05/25/2018526/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -737,9 +737,9 @@ var jiathis_config={
             
               <img class="site-author-image" itemprop="image"
                 src="/img/2018521.png"
-                alt="Hunter" />
+                alt="Gbr" />
             
-              <p class="site-author-name" itemprop="name">Hunter</p>
+              <p class="site-author-name" itemprop="name">Gbr</p>
               <p class="site-description motion-element" itemprop="description">最累的时候，家是我们最好的归宿。</p>
           </div>
 
@@ -793,21 +793,21 @@ var jiathis_config={
             <div class="links-of-author motion-element">
                 
                   <span class="links-of-author-item">
-                    <a href="https://github.com/Mr-Hunter" target="_blank" title="GitHub">
+                    <a href="https://github.com/gbrweb" target="_blank" title="GitHub">
                       
                         <i class="fa fa-fw fa-globe"></i>GitHub</a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:1522138135@qq.com" target="_blank" title="E-Mail">
+                    <a href="mailto:3552526022@qq.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-globe"></i>E-Mail</a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="https://blog.csdn.net/qq_41035588" target="_blank" title="CSDN">
+                    <a href="https://ce17877258.icoc.bz" target="_blank" title="MY Space">
                       
-                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                        <i class="fa fa-fw fa-globe"></i>MY Space</a>
                   </span>
                 
             </div>
@@ -859,7 +859,7 @@ var jiathis_config={
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Hunter</span>
+  <span class="author" itemprop="copyrightHolder">Gbr</span>
 
   
     <span class="post-meta-divider">|</span>
