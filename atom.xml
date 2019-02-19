@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hunter&#39; home</title>
+  <title>Gbr&#39; home</title>
   
   <subtitle>人生在勤，不索何获！</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>https://gbrweb.github.io/</id>
   
   <author>
-    <name>Hunter</name>
+    <name>Gbr</name>
     
   </author>
   
